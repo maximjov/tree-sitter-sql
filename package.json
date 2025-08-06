@@ -1,8 +1,8 @@
 {
-  "name": "@derekstride/tree-sitter-sql",
+  "name": "@maximjov/tree-sitter-sql",
   "version": "0.3.8",
-  "description": "Tree-sitter Grammar for SQL",
-  "main": "bindings/node",
+  "description": "SQL grammar for tree-sitter, but it is has more better grammer",
+  "main": "bindings/node/index.js",
   "types": "bindings/node",
   "scripts": {
     "install": "npx --yes --package=tree-sitter-cli@v0.24.7 -- tree-sitter generate && node-gyp-build",
@@ -12,9 +12,10 @@
     "test": "node --test bindings/node/*_test.js",
     "prebuildify": "prebuildify --napi --strip"
   },
-  "author": "derek stride",
+  "author": "maximjov - forked from Derek Stride",
   "license": "MIT",
   "dependencies": {
+    "generate": "^0.14.0",
     "node-addon-api": "^7.1.0",
     "node-gyp-build": "^4.8.0"
   },
@@ -24,7 +25,7 @@
     "prebuildify": "^6.0.0"
   },
   "peerDependencies": {
-    "tree-sitter": "^0.21.0"
+    "tree-sitter": "^0.21.1"
   },
   "peerDependenciesMeta": {
     "tree_sitter": {
@@ -37,12 +38,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/derekstride/tree-sitter-sql.git"
+    "url": "git+https://github.com/maximjov/tree-sitter-sql.git"
   },
   "bugs": {
-    "url": "https://github.com/derekstride/tree-sitter-sql/issues"
+    "url": "https://github.com/maximjov/tree-sitter-sql/issues"
   },
-  "homepage": "https://github.com/derekstride/tree-sitter-sql#readme",
+  "homepage": "https://github.com/maximjov/tree-sitter-sql#readme",
   "commit-and-tag-version": {
     "skip": {
       "tag": true
