@@ -21,6 +21,7 @@ module.exports = grammar({
     [$.between_expression, $.binary_expression],
     [$.time],
     [$.timestamp],
+    [$.function_body, $._function_body_statement],
   ],
 
   precedences: $ => [
@@ -1244,62 +1245,48 @@ module.exports = grammar({
       $._function_return,
     ),
 
-    function_body: $ => choice(
-      seq(
-        $._function_return,
-        ';'
-      ),
+    function_body: $ => prec(1, choice(
       seq(
         $.keyword_begin,
         $.keyword_atomic,
-        repeat1(
-          seq(
-            $._function_body_statement,
-            ';',
-          ),
+        repeat1(seq($._function_body_statement, ';')),
+        $.keyword_end
+      ),
+      choice(
+        seq(
+          $.keyword_begin,
+          repeat1(seq($._function_body_statement, ';')),
+          $.keyword_end
         ),
-        $.keyword_end,
+        repeat1(seq($._function_body_statement, ';'))
       ),
       seq(
         $.keyword_as,
         alias($._dollar_quoted_string_start_tag, $.dollar_quote),
-        optional(
+        optional(seq($.keyword_declare, repeat1($.function_declaration))),
+        choice(
           seq(
-            $.keyword_declare,
-            repeat1(
-              $.function_declaration,
-            ),
+            $.keyword_begin,
+            repeat1(seq($._function_body_statement, ';')),
+            $.keyword_end
           ),
+          repeat1(seq($._function_body_statement, ';'))
         ),
-        $.keyword_begin,
-        repeat1(
-          seq(
-            $._function_body_statement,
-            ';',
-          ),
-        ),
-        $.keyword_end,
-        optional(';'),
-        alias($._dollar_quoted_string_end_tag, $.dollar_quote),
+        optional(';'), // allow a trailing semicolon before the closing $$
+        alias($._dollar_quoted_string_end_tag, $.dollar_quote)
       ),
       seq(
         $.keyword_as,
-        alias(
-          choice(
-            $._single_quote_string,
-            $._double_quote_string,
-          ),
-          $.literal
-        ),
+        alias(choice($._single_quote_string, $._double_quote_string), $.literal)
       ),
       seq(
         $.keyword_as,
         alias($._dollar_quoted_string_start_tag, $.dollar_quote),
         $._function_body_statement,
         optional(';'),
-        alias($._dollar_quoted_string_end_tag, $.dollar_quote),
-      ),
-    ),
+        alias($._dollar_quoted_string_end_tag, $.dollar_quote)
+      )
+    )),
 
     function_language: $ => seq(
       $.keyword_language,

@@ -1,24 +1,12 @@
 # tree-sitter-sql
 
-[![Build/test](https://github.com/derekstride/tree-sitter-sql/actions/workflows/ci.yml/badge.svg)](https://github.com/derekstride/tree-sitter-sql/actions/workflows/ci.yml)
-[![GitHub Pages](https://github.com/DerekStride/tree-sitter-sql/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/DerekStride/tree-sitter-sql/actions/workflows/gh-pages.yml)
-[![npm package version](https://img.shields.io/npm/v/%40derekstride/tree-sitter-sql?logo=npm&color=brightgreen)](https://www.npmjs.com/package/@derekstride/tree-sitter-sql)
-
-
-A general/permissive SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
+A general/permissive SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter) adapted by @maximjov for use in [pg_lens](https://github.com/mmoncure/pg_lens)
 
 ## Installation
 
-**We don't commit the generated parser files to the `main` branch.** Instead, you can find them on the
-[gh-pages](https://github.com/DerekStride/tree-sitter-sql/tree/gh-pages) branch. We're open to feedback & encourage you
-to [open an issue](https://github.com/DerekStride/tree-sitter-sql/issues/new) to discuss any problems.
+I'm open to feedback & encourage you to [open an issue](https://github.com/maximjov/tree-sitter-sql/issues/new) to discuss any features or problems with changes.
 
-They are also hosted on the [GitHub pages site](https://derek.stride.host/tree-sitter-sql/) and available for download
-here:
-[github://derekstride/tree-sitter-sql/gh-pages.tar.gz](https://github.com/DerekStride/tree-sitter-sql/archive/refs/heads/gh-pages.tar.gz).
-
-*Plugin maintainers ensure to specify the `HEAD` (or a specific revision) of the `gh-pages` branch when integrating
-with this project.*
+For any issues related to non-forked related problems, you can open an issue in the [original project](https://github.com/DerekStride/tree-sitter-sql/issues/new) by @DerekStride
 
 ### Step 1: Download the parser files
 
@@ -36,31 +24,34 @@ tar -xzf gh-pages.tar.gz
 cd tree-sitter-sql-gh-pages
 ```
 
-### Step 2: Compile the Parser
+### Step 2: Build yourself
 
-Tree-sitter parsers need to be compiled as a shared-object / dynamic-library, you can enable this by passing the
-`-shared` & `-fPIC` flags to your compiler.
+### Using [npm](https://www.npmjs.com/package/@maximjov/tree-sitter-sql)
 
 ```bash
-cc -shared -fPIC -I./src src/parser.c src/scanner.c -o sql.so
+npm install -g tree-sitter-cli
+tree-sitter generate -b --libdir ./build
+npm rebuild
 ```
 
-### Using [cargo](https://crates.io/crates/tree-sitter-sequel)
+#### link or local install
 
 ```bash
-cargo add tree-sitter-sequel
+npm i path_to_repo
+```
+```bash
+npm link # in "@maximjov/tree-sitter-sql" root
+...
+npm link @maximjov/tree-sitter-sql # in other root
 ```
 
-### Using [npm](https://www.npmjs.com/package/@derekstride/tree-sitter-sql)
+### Step 2: Compile the Parser (if not building locally)
+
+### Using [npm](https://www.npmjs.com/package/@maximjov/tree-sitter-sql)
+#### only supporting NPM at the moment, feel free to try methods mentioned in the [original project](https://github.com/DerekStride/tree-sitter-sql/issues/new)
 
 ```bash
-npm i @derekstride/tree-sitter-sql
-```
-
-### Using [pip](https://pypi.org/project/tree-sitter-sql/0.3.5/)
-
-```bash
-pip install tree-sitter-sql
+npm i @maximjov/tree-sitter-sql
 ```
 
 ## Development
