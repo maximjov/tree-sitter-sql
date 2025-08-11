@@ -2364,15 +2364,18 @@ module.exports = grammar({
       repeat(seq(',', $.assignment)),
     ),
 
-    _insert_values: $ => seq(
-      optional(alias($._column_list, $.list)),
-      choice(
-        seq(
-          $.keyword_values,
-          comma_list($.list, true),
+    _insert_values: $ => choice(
+      seq(
+        optional(alias($._column_list, $.list)),
+        choice(
+          seq(
+            $.keyword_values,
+            comma_list($.list, true),
+          ),
+          $._dml_read,
         ),
-        $._dml_read,
       ),
+      seq($.keyword_default, $.keyword_values)
     ),
 
     _set_values: $ => seq(

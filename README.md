@@ -30,6 +30,7 @@ cd tree-sitter-sql-gh-pages
 
 ```bash
 npm install -g tree-sitter-cli
+rm -rf build src/parser.c src/parser.cc src/scanner.o
 tree-sitter generate -b --libdir ./build
 npm rebuild
 ```
