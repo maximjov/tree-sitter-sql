@@ -10,7 +10,8 @@
     "start": "npx --yes --package=tree-sitter-cli@v0.24.7 -- tree-sitter playground",
     "release": "commit-and-tag-version",
     "test": "node --test bindings/node/*_test.js",
-    "prebuildify": "prebuildify --napi --strip"
+    "prebuildify": "prebuildify --napi --strip",
+    "build": "rm -rf build src/parser.c src/parser.cc src/scanner.o && tree-sitter generate -b --libdir ./build && npm rebuild"
   },
   "author": "maximjov - forked from Derek Stride",
   "license": "MIT",
@@ -59,6 +60,8 @@
     "prebuilds/**",
     "bindings/node/*",
     "queries/*",
-    "src/**"
+    "src/**",
+    "build/**",
+    "README.md"
   ]
 }

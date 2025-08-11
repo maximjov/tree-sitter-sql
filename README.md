@@ -1,5 +1,7 @@
 # tree-sitter-sql
 
+[![npm package version](https://img.shields.io/npm/v/%40derekstride/tree-sitter-sql?logo=npm&color=brightgreen)](https://www.npmjs.com/package/@maximjov/tree-sitter-sql)
+
 A general/permissive SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter) adapted by @maximjov for use in [pg_lens](https://github.com/mmoncure/pg_lens)
 
 ## Installation
@@ -28,11 +30,19 @@ cd tree-sitter-sql-gh-pages
 
 ### Using [npm](https://www.npmjs.com/package/@maximjov/tree-sitter-sql)
 
+FIRST
 ```bash
-npm install -g tree-sitter-cli
+npm install
+```
+
+```bash
 rm -rf build src/parser.c src/parser.cc src/scanner.o
 tree-sitter generate -b --libdir ./build
 npm rebuild
+```
+OR
+```bash
+npm run build
 ```
 
 #### link or local install
